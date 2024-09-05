@@ -164,6 +164,7 @@ resource "aws_instance" "public_ec2_one" {
   tags = {
     Name = "public_ec2_one"
   }
+  user_data = filebase64("script.sh")
 }
 
 resource "aws_instance" "public_ec2_two" {
@@ -171,9 +172,9 @@ resource "aws_instance" "public_ec2_two" {
   instance_type   = "t2.micro"
   subnet_id       = aws_subnet.public_subnet_2.id
   security_groups = [aws_security_group.apache_sg.id]
-
-
+  key_name = "id_ed25519"
   tags = {
     Name = "public_ec2_two"
   }
+  user_data = filebase64("script.sh")
 }
