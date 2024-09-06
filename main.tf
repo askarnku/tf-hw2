@@ -71,8 +71,6 @@ resource "aws_nat_gateway" "hw_ngw" {
   tags = {
     Name = "tntk_hw NAT"
   }
-
-  depends_on = [aws_internet_gateway.gw]
 }
 
 resource "aws_route_table" "public_rt" {
@@ -98,6 +96,10 @@ resource "aws_route_table" "private_rt" {
 
   tags = {
     Name = "private_rt"
+  }
+
+  lifecycle {
+    ignore_changes = [route]
   }
 
 }
@@ -160,7 +162,7 @@ resource "aws_instance" "public_ec2_one" {
   instance_type   = "t2.micro"
   subnet_id       = aws_subnet.public_subnet_1.id
   security_groups = [aws_security_group.apache_sg.id]
-  key_name = "id_ed25519"
+  key_name        = "id_ed25519"
   tags = {
     Name = "public_ec2_one"
   }
@@ -172,7 +174,7 @@ resource "aws_instance" "public_ec2_two" {
   instance_type   = "t2.micro"
   subnet_id       = aws_subnet.public_subnet_2.id
   security_groups = [aws_security_group.apache_sg.id]
-  key_name = "id_ed25519"
+  key_name        = "id_ed25519"
   tags = {
     Name = "public_ec2_two"
   }

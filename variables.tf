@@ -23,3 +23,8 @@ variable "private_subnet_2" {
   default = "10.0.60.0/24"
 }
 
+variable "ami_id" {
+  type = string
+  default = "ami-0182f373e66f89c85"
+}
+
